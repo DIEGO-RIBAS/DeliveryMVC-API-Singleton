@@ -1,0 +1,45 @@
+unit uMain.View;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs;
+
+type
+  TfrmMain = class(TForm)
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmMain: TfrmMain;
+
+implementation
+
+   uses Horse,
+        horse.jhonson,
+        horse.Cors,
+        Cardapio.Controller,
+        Pedido.Controller,
+        Configuracoes.Controller;
+
+{$R *.fmx}
+
+procedure TfrmMain.FormShow(Sender: TObject);
+begin
+  THorse.Use(Jhonson());
+  THorse.Use(cors);
+
+  Cardapio.Controller.Registry;
+  Pedido.Controller.Registry;
+  Configuracoes.Controller.Registry;
+
+
+  THorse.Listen(9000);
+end;
+
+end.

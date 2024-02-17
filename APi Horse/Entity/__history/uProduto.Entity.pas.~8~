@@ -1,0 +1,79 @@
+unit uProduto.Entity;
+
+interface
+
+   uses
+     System.Generics.Collections, System.SysUtils;
+
+   type
+
+     TEntityProduto = class
+       private
+         FID          : Integer;
+         FPreco       : Double;
+         FDescricao   : string;
+         FFoto        : string;
+         FNome        : string;
+         FidCategoria : string;
+         FidAPI: Integer;
+
+       public
+         property Id          : Integer read FID write FID;
+         property Nome        : string  read FNome  write FNome ;
+         property Descricao   : string  read FDescricao write FDescricao;
+         property Preco       : Double  read FPreco write FPreco;
+         property Foto        : string  read FFoto write FFoto;
+         property idCategoria : string  read FidCategoria write FidCategoria;
+         property idAPI       : Integer read FidAPI       write FidAPI;
+
+     end;
+
+     TListaProdutos = class
+       private
+          FProdutO: TEntityProduto;
+          FProdutoS: TObjectList<TEntityProduto>;
+
+       public
+          property ProdutoS : TObjectList<TEntityProduto> read FProdutoS write FProdutoS;
+          property ProdutO  : TEntityProduto              read FProdutO  write FProdutO;
+
+          constructor Create;
+          destructor Destroy; override;
+          procedure AdicionarItem(Produto : TEntityProduto);
+     end;
+
+implementation
+
+{ TListaProdutos }
+
+procedure TListaProdutos.AdicionarItem(Produto: TEntityProduto);
+var
+  I: Integer;
+begin
+
+  FProdutoS.Add(TEntityProduto.Create);
+  I := FProdutoS.Count -1;
+  FProdutoS[I].FID          := Produto.FID;
+  FProdutoS[I].FPreco       := Produto.FPreco;
+  FProdutoS[I].FDescricao   := Produto.Descricao;
+  FProdutoS[I].FFoto        := Produto.Foto;
+  FProdutoS[I].FidCategoria := Produto.idCategoria;
+  FProdutoS[I].FidAPI       := Produto.idAPI;
+
+end;
+
+constructor TListaProdutos.Create;
+begin
+  FProdutoS := TObjectList<TEntityProduto>.Create(nil);
+  FProdutO  := TEntityProduto.Create;
+end;
+
+destructor TListaProdutos.Destroy;
+begin
+  FreeAndNil(FProdutoS);
+  FreeAndNil(FProdutO);
+
+  inherited;
+end;
+
+end.

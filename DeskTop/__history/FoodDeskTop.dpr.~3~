@@ -1,0 +1,15 @@
+program FoodDeskTop;
+
+uses
+  Vcl.Forms,
+  uView.Main in 'View\uView.Main.pas' {Form2},
+  uDao.ConexaoSingleton in 'Dao\uDao.ConexaoSingleton.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm2, Form2);
+  Application.Run;
+end.

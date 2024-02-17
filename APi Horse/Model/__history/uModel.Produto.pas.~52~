@@ -1,0 +1,158 @@
+unit uModel.Produto;
+
+interface
+
+   uses
+         System.SysUtils,System.JSON,  System.Classes,
+
+
+      Winapi.Windows, Winapi.Messages,  System.Variants,  Vcl.Graphics,
+
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
+
+
+  FireDAC.DApt,FireDAC.Stan.Option,FireDAC.Comp.Client,
+  FireDAC.Phys.MySQLDef,
+  FireDAC.Stan.Intf, FireDAC.Phys, FireDAC.Phys.MySQL,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.VCLUI.Wait, FireDAC.Stan.Param,
+  FireDAC.DatS, FireDAC.DApt.Intf,  Data.DB, FireDAC.Comp.DataSet,
+   FireDAC.Stan.ExprFuncs, FireDAC.Phys.SQLiteDef,
+  FireDAC.Phys.SQLite,
+
+
+      uConexaoSingleton,uProduto.Entity,
+      DataSet.Serialize;
+
+    type
+
+     TProdutosModel = class
+       private
+         FQuery : TFDQuery;
+         FDPhysSQLiteDriverLink: TFDPhysSQLiteDriverLink;
+       public
+         function ListaPedidos : TJSONArray;
+         function GravarProduto(ProdutoS : TListaProdutos) : TJSONObject;
+
+         constructor Create;
+         destructor Destroy;
+     end;
+
+
+
+implementation
+
+{ TProdutosModel }
+
+constructor TProdutosModel.Create;
+begin
+  FDPhysSQLiteDriverLink := TFDPhysSQLiteDriverLink.Create(nil);
+
+  FQuery := TFDQuery.Create(nil);
+  FQuery.Connection := TInstanciaConexao.ObterInstancia.Conexao;
+
+end;
+
+destructor TProdutosModel.Destroy;
+begin
+  FreeAndNil(FQuery);
+  FreeAndNil(FDPhysSQLiteDriverLink);
+end;
+
+function TProdutosModel.GravarProduto(ProdutoS: TListaProdutos): TJSONObject;
+var
+  IdProdAPI     : string;
+  jObject : TJSONObject;
+  jArrayOK,jArrayError : TJSONArray;
+  i             : Integer;
+
+  str : TStringList;
+begin
+  jObject     := TJSONObject.Create;
+  jArrayOK    := TJSONArray.Create;
+  jArrayError := TJSONArray.Create;
+
+  try
+    with FQuery do
+    begin
+      for I := 0 to Pred(ProdutoS.ProdutoS.Count) do
+        begin
+          Close;
+          SQL.Clear;
+
+          if ProdutoS.ProdutoS[i].idAPI > 0 then
+          begin
+            SQL.Add('Update Produto set nome="'+ProdutoS.ProdutoS[i].Nome+'", descricao="'+ProdutoS.ProdutoS[i].Descricao+'",preco='+StringReplace(ProdutoS.ProdutoS[i].Preco.ToString,',','.',[rfReplaceAll])+', foto="'+ProdutoS.ProdutoS[i].Foto+'", id_Categoria='+ProdutoS.ProdutoS[i].idCategoria+'  ');
+            SQL.Add('where id = '+ProdutoS.ProdutoS[i].idAPI.ToString+'  ');
+
+            try
+              ExecSQL;
+            except On E : Exception do
+              begin
+                jObject := TJSONObject.Create;
+                jObject.AddPair('Produto',ProdutoS.ProdutoS[i].Id.ToString);
+                jObject.AddPair('Mensagem','Erro ao gravar PRODUTO:'+ProdutoS.ProdutoS[i].Nome+' - erro: : '+ E.Message);
+                jArrayError.Add(jObject);
+              end;
+            end;
+          end
+            else
+            begin
+              SQL.Add('Insert into produto(nome,descricao,preco,foto,id_categoria)');
+              SQL.Add('values');
+              SQL.Add('("'+ProdutoS.ProdutoS[i].Nome+'","'+ProdutoS.ProdutoS[i].Descricao+'",'+StringReplace(ProdutoS.ProdutoS[i].Preco.ToString,',','.',[rfReplaceAll])+', "'+ProdutoS.ProdutoS[i].Foto+'", '+ProdutoS.ProdutoS[i].idCategoria+');  ');
+              SQL.Add('SELECT LAST_INSERT_ROWID() AS CodPProdutoAPI;');
+              SQL.SaveToFile('C:\testeeee.txt');
+              try
+                Open;
+                IdProdAPI := FieldByName('CodPProdutoAPI').AsString;
+
+                jObject    := TJSONObject.Create;
+                jObject.AddPair('idLocal',ProdutoS.ProdutoS[i].Id.ToString);
+                jObject.AddPair('idAPI',IdProdAPI);
+                jArrayOK.Add(jObject);
+
+              except On E : Exception do
+                begin
+                  jObject := TJSONObject.Create;
+                  jObject.AddPair('Produto',ProdutoS.ProdutoS[i].Id.ToString);
+                  jObject.AddPair('Mensagem','Erro ao gravar PRODUTO:'+ProdutoS.ProdutoS[i].Nome+' - erro: : '+ E.Message);
+                  jArrayError.Add(jObject);
+                end;
+              end;
+            end;
+        end;
+
+      Close;
+    end;
+
+    jObject := TJSONObject.Create;
+
+    if jArrayOK.Count > 0 then    jObject.AddPair(TJSONPair.Create('NovosProdutos', jArrayOK ));
+    if jArrayError.Count > 0 then jObject.AddPair(TJSONPair.Create('ProdutosComErro', jArrayError ));
+
+    str := TStringList.Create;
+    try
+      str.Add(jObject.ToString);
+      str.SaveToFile('C:\TesteOO.txt');
+    finally
+      FreeAndNil(str);
+    end;
+
+    Result := jObject;
+
+
+  finally
+    FreeAndNil(jObject);
+  //  FreeAndNil(jArrayOK);
+    FreeAndNil(jArrayError);
+    FreeAndNil(jErro);
+  end;
+end;
+
+function TProdutosModel.ListaPedidos: TJSONArray;
+begin
+
+end;
+
+end.

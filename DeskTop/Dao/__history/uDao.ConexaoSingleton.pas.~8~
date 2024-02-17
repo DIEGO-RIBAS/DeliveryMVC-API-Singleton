@@ -1,0 +1,44 @@
+unit uDao.ConexaoSingleton;
+
+interface
+
+   uses
+      uEntity.ConexaoDB,
+      FireDAC.Comp.Client;
+
+
+
+    type
+
+    TConexaoSingleton = class(TConexaoMySQL)
+      private
+         FConexao : TFDConnection;
+      public
+         class function GetInstance : TConexaoSingleton;
+
+         constructor Create;
+    end;
+
+implementation
+
+{ TConexaoSingleton }
+
+constructor TConexaoSingleton.Create;
+begin
+  FConexao := TFDConnection.Create(nil);
+
+  with FConexao do
+  begin
+    Params.DriverID := NameDriver;
+    Params.Database := DataBase;
+    Params.UserName := User;
+    Params.Password := PassWord;
+  end;
+end;
+
+class function TConexaoSingleton.GetInstance: TConexaoSingleton;
+begin
+
+end;
+
+end.

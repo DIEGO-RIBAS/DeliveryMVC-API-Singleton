@@ -1,0 +1,45 @@
+unit Model.Configuracoes;
+
+interface
+
+   uses
+    System.JSON,System.SysUtils,
+    FireDAC.Comp.Client, FireDAC.DApt,
+    DataSet.Serialize,
+    {Singleton}
+    uConexaoSingleton;
+
+  type
+
+    TConfig = class
+      private
+
+      public
+         function getConfig : TJSONObject;
+    end;
+
+implementation
+
+{ TConfig }
+
+function TConfig.getConfig: TJSONObject;
+var
+  lQuery : TFDQuery;
+begin
+  lQuery := TFDQuery.Create(nil);
+  lQuery.Connection := TInstanciaConexao.ObterInstancia.Conexao;
+
+  try
+    with lQuery do
+    begin
+      SQL.Add('Select Vlr_Entrega from Config limit 1');
+      Open();
+    end;
+
+    Result := lQuery.ToJSONObject();
+  finally
+    FreeAndNil(lQuery);
+  end;
+end;
+
+end.

@@ -1,0 +1,36 @@
+unit uEntity.ConexaoDB;
+
+interface
+
+   type
+
+     TConexaoMySQL = class
+       private
+         FUser       : string;
+         FPassWord   : string;
+         FDataBase   : string;
+         FHost       : string;
+         FDriverName : string;
+       public
+         property User       : string read FUser     write FUser ;
+         property PassWord   : string read FPassWord write FPassWord;
+         property Host       : string read FHost     write FHost;
+         property DataBase   : string read FDataBase write FDataBase;
+         property DriverName : string read FDriverName write FDriverName;
+
+         constructor create;
+       end;
+
+implementation
+
+{ TConexaoMySQL }
+
+constructor TConexaoMySQL.create;
+begin
+  FUser     := 'root';
+  FPassWord := '';
+  FDataBase : string;
+  FHost     : string;
+end;
+
+end.

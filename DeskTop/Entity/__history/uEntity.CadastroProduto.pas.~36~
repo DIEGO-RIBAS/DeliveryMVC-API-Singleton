@@ -1,0 +1,165 @@
+unit uEntity.CadastroProduto;
+
+interface
+
+   uses System.Generics.Collections, System.SysUtils,
+        Vcl.Menus, jPeg, PngImage, Vcl.ExtCtrls, Vcl.Dialogs, System.Classes, System.NetEncoding,
+        Soap.EncdDecd;
+
+   type
+
+   TImageHelper = class helper for TImage
+     procedure Popup;
+     procedure OpenClick(Sender : TObject);
+     procedure RemoveClick(Sender : TObject);
+     function Base64 : String; overload;
+     procedure Base64(str64 : String); overload;
+   end;
+
+     TEntityProduto = class
+       private
+          FPreco       : Double;
+          FDescricao   : string;
+          FID          : Integer;
+          FFoto        : string;
+          FNome        : string;
+          FIdCategoria : Integer;
+          FAPI         : integer;
+          FUpdate      : Integer;
+
+       public
+          property ID          : Integer read FID          write FID ;
+          property Nome        : string  read FNome        write FNome ;
+          property Descricao   : string  read FDescricao   write FDescricao;
+          property Preco       : Double  read FPreco       write FPreco;
+          property Foto        : string  read FFoto        write FFoto;
+          property IdCategoria : Integer read FIdCategoria write FIdCategoria;
+          property API         : integer read FAPI         write FAPI;
+          property Update      : Integer read FUpdate      write FUpdate;
+     end;
+
+     TEntityListaProdutos = class
+       private
+          FListaProdutos: TObjectList<TEntityProduto>;
+          FProduto: TEntityProduto;
+       public
+          property ListaProdutos : TObjectList<TEntityProduto> read FListaProdutos  write FListaProdutos ;
+          property Produto : TEntityProduto  read FProduto  write FProduto ;
+
+          procedure AddProduto(Produto : TEntityProduto);
+
+          constructor Create;
+          destructor destroy;
+     end;
+
+implementation
+
+{ TListaProdutos }
+
+procedure TEntityListaProdutos.AddProduto(Produto: TEntityProduto);
+var
+  i : Integer;
+begin
+  FListaProdutos.Add(TEntityProduto.Create);
+  I := FListaProdutos.Count -1;
+  FListaProdutos[I].FID          := Produto.FID;
+  FListaProdutos[I].FDescricao   := Produto.FDescricao;
+  FListaProdutos[I].FNome        := Produto.FNome;
+  FListaProdutos[I].FPreco       := Produto.FPreco;
+  FListaProdutos[I].FFoto        := Produto.FFoto;
+  FListaProdutos[I].FIdCategoria := Produto.FIdCategoria;
+  FListaProdutos[I].FAPI         := Produto.FAPI;
+  FListaProdutos[I].FUpdate      := Produto.FUpdate;
+end;
+
+constructor TEntityListaProdutos.Create;
+begin
+  FProduto       := TEntityProduto.Create;
+  FListaProdutos := TObjectList<TEntityProduto>.Create;
+end;
+
+destructor TEntityListaProdutos.destroy;
+begin
+  FreeAndNil(FProduto);
+  FreeAndNil(FListaProdutos);
+end;
+
+{ TImageHelper }
+
+function TImageHelper.Base64: String;
+var
+  Input, outPut : TStringStream;
+begin
+  Input  := TStringStream.Create;
+  outPut := TStringStream.Create;
+
+  try
+    Self.Picture.Graphic.SaveToStream(Input);
+    Input.Position := 0;
+    TNetEncoding.Base64.Encode(Input,outPut);
+    Result := outPut.DataString;
+  finally
+    FreeAndNil(Input);
+    FreeAndNil(outPut);
+  end;
+end;
+
+procedure TImageHelper.Base64(str64: String);
+var
+  Input, outPut : TStringStream;
+begin
+  Input  := TStringStream.Create(str64);
+  outPut := TStringStream.Create;
+
+  try
+    Input.Position := 0;
+    TNetEncoding.Base64.Decode(Input,outPut);
+    outPut.Position := 0;
+    Self.Picture.LoadFromStream(outPut);
+  finally
+    FreeAndNil(Input);
+    FreeAndNil(outPut);
+  end;
+end;
+
+procedure TImageHelper.OpenClick(Sender: TObject);
+var
+  Dialog : TOpenDialog;
+begin
+  Dialog := TOpenDialog.Create(nil);
+  try
+    Dialog.Filter := 'JPG (*.jpg) |*.jpg| PNG (*.png)| *.png ';
+    if Dialog.Execute then
+      Self.Picture.LoadFromFile(Dialog.FileName);
+  finally
+    FreeAndNil(Dialog);
+  end;
+end;
+
+procedure TImageHelper.Popup;
+var
+  PopupMenu : TPopupMenu;
+  Item      : TMenuItem;
+begin
+  PopupMenu    := TPopupMenu.Create(nil);
+  Self.Stretch := True;
+
+  Item         := TMenuItem.Create(PopupMenu);
+  Item.Caption := 'Carregar imagem';
+  Item.OnClick := OpenClick;
+  PopupMenu.Items.Add(Item);
+
+  Item         := TMenuItem.Create(PopupMenu);
+  Item.Caption := 'Remover';
+  Item.OnClick := RemoveClick;
+  PopupMenu.Items.Add(Item);
+
+  Self.PopupMenu := PopupMenu;
+end;
+
+procedure TImageHelper.RemoveClick(Sender: TObject);
+begin
+  Self.Picture := nil;
+end;
+
+end.

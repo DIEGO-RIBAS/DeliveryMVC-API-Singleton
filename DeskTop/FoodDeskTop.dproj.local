@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/02/13 14:18:41.000.105,=C:\Users\Diego\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2024/02/13 14:19:19.000.218,D:\Delphi\Projetos\Food\Fontes\DeskTop\uView.Main.dfm=C:\Users\Diego\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2024/02/13 14:19:19.000.218,D:\Delphi\Projetos\Food\Fontes\DeskTop\uView.Main.pas=C:\Users\Diego\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2024/02/13 14:19:36.000.343,D:\Delphi\Projetos\Food\Fontes\DeskTop\FoodDeskTop.dproj=C:\Users\Diego\OneDrive\Documentos\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
+    <Transaction>2024/02/13 14:19:50.000.245,D:\Delphi\Projetos\Food\Fontes\DeskTop\View\uView.Main.dfm=D:\Delphi\Projetos\Food\Fontes\DeskTop\uView.Main.dfm</Transaction>
+    <Transaction>2024/02/13 14:19:50.000.245,D:\Delphi\Projetos\Food\Fontes\DeskTop\View\uView.Main.pas=D:\Delphi\Projetos\Food\Fontes\DeskTop\uView.Main.pas</Transaction>
+    <Transaction>2024/02/13 14:23:13.000.171,=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+    <Transaction>2024/02/13 14:23:41.000.501,D:\Delphi\Projetos\Food\Fontes\DeskTop\Dao\uDao.ConexaoSingleton.pas=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+    <Transaction>2024/02/13 14:29:08.000.572,=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+    <Transaction>2024/02/13 14:29:29.000.741,D:\Delphi\Projetos\Food\Fontes\DeskTop\Entity\uEntity.ConexaoDB.pas=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+    <Transaction>2024/02/13 14:52:17.000.070,=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+    <Transaction>2024/02/13 14:52:44.000.672,D:\Delphi\Projetos\Food\Fontes\DeskTop\View\uView.Produtos.pas=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+    <Transaction>2024/02/13 14:52:44.000.672,D:\Delphi\Projetos\Food\Fontes\DeskTop\View\uView.Produtos.dfm=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.dfm</Transaction>
+    <Transaction>2024/02/13 15:21:28.000.719,=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+    <Transaction>2024/02/13 15:21:50.000.281,D:\Delphi\Projetos\Food\Fontes\DeskTop\Entity\uEntity.CadastroProduto.pas=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+    <Transaction>2024/02/13 15:34:28.000.457,=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+    <Transaction>2024/02/13 15:34:47.000.994,D:\Delphi\Projetos\Food\Fontes\DeskTop\Controller\uController.CadastroProdutos.pas=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+    <Transaction>2024/02/13 16:11:29.000.743,=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+    <Transaction>2024/02/13 16:13:16.000.700,D:\Delphi\Projetos\Food\Fontes\DeskTop\Dao\uDAO.pas=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+    <Transaction>2024/02/13 16:13:57.000.520,D:\Delphi\Projetos\Food\Fontes\DeskTop\Dao\uDAO.API.API=D:\Delphi\Projetos\Food\Fontes\DeskTop\Dao\uDAO.API</Transaction>
+    <Transaction>2024/02/14 00:33:50.000.576,=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+    <Transaction>2024/02/14 00:34:20.000.436,D:\Delphi\Projetos\Food\Fontes\DeskTop\Model\uModel.Produto.pas=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+    <Transaction>2024/02/16 16:46:37.337,=D:\Delphi\Projetos\Food\Fontes\DeskTop\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

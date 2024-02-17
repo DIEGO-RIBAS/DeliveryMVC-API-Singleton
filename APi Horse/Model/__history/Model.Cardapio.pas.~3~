@@ -1,0 +1,25 @@
+unit Model.Cardapio;
+
+interface
+
+   uses
+      System.SysUtils,System.JSON,
+      FireDAC.Comp.Client, FireDAC.DApt,FireDAC.Comp.Client,
+      uConexaoSingleton,
+      DataSet.Serialize;
+
+type
+
+     Tcardaprio = class
+       private
+         FQuery : TFDQuery;
+       public
+         function Listacardapio : TJSONArray;
+         constructor Create;
+         destructor Destroy;
+     end;
+
+
+implementation
+
+end.

@@ -1,0 +1,42 @@
+unit uPedido.Entity;
+
+interface
+
+    type
+
+    TPedidosItens = class
+      private
+        FIdPedido : Integer;
+        FPreco    : Double;
+        FProduto  : Integer;
+        FQtde     : Double;
+
+      public
+        property IdPedido  : Integer read FIdPedido write FIdPedido;
+        property IdProduto : Integer read FProduto  write FProduto;
+        property Qtde      : Double  read FQtde     write FQtde;
+        property Preco     : Double  read FPreco    write FPreco;
+
+
+    end;
+
+      TPedidos = class
+        private
+          FIDCliente: Integer;
+          FDTPedido: string;
+          FEndereco: string;
+          FFone: string;
+          FStatus: string;
+
+        public
+          property IDCliente : Integer read FIDCliente  write FIDCliente ;
+          property DTpedido  : string  read FDTPedido   write FDTPedido;
+          property Endreeco  : string  read FEndereco   write FEndereco;
+          property Fone      : string  read FFone       write FFone;
+          property Status    : string  read FStatus       write FStatus;
+
+      end;
+
+implementation
+
+end.

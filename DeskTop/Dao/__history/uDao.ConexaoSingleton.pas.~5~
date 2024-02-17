@@ -1,0 +1,35 @@
+unit uDao.ConexaoSingleton;
+
+interface
+
+   uses
+      FireDAC.Comp.Client;
+
+
+
+    type
+
+    TConexaoSingleton = class
+      private
+         FConexao : TFDConnection;
+      public
+         class function GetInstance : TConexaoSingleton;
+
+         constructor Create;
+    end;
+
+implementation
+
+{ TConexaoSingleton }
+
+constructor TConexaoSingleton.Create;
+begin
+
+end;
+
+class function TConexaoSingleton.GetInstance: TConexaoSingleton;
+begin
+
+end;
+
+end.

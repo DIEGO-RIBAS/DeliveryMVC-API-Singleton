@@ -1,0 +1,21 @@
+unit Configuracoes.Controller;
+
+interface
+   uses Horse;
+
+procedure Registry;
+procedure ListarConfiguracoes(Req: THorseRequest; Res: THorseResponse; Next : Tproc);
+
+implementation
+
+procedure Registry;
+begin
+  THorse.Get('Configuracoes',ListarConfiguracoes);
+end;
+
+
+procedure ListarConfiguracoes(Req: THorseRequest; Res: THorseResponse; Next : Tproc);
+begin
+  Res.Send('lISTAR CONFIG');
+end;
+end.

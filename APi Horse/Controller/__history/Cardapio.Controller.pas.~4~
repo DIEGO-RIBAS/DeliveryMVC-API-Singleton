@@ -1,0 +1,22 @@
+unit Cardapio.Controller;
+
+interface
+  uses Horse, Horse.jhonson;
+
+  procedure Registry;
+  procedure ListarrCardapio(Req: THorseRequest; Res:THorseResponse; Next : TProc );
+
+
+implementation
+
+procedure ListarrCardapio(Req: THorseRequest; Res:THorseResponse; Next : TProc );
+begin
+
+end;
+
+procedure Registry;
+begin
+  THorse.Get('Cardapio',ListarrCardapio);
+end;
+
+end.

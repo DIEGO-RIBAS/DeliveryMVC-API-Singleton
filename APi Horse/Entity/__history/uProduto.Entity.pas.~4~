@@ -1,0 +1,64 @@
+unit uProduto.Entity;
+
+interface
+
+   uses
+     System.Generics.Collections, System.SysUtils;
+
+   type
+
+     TEntityProduto = class
+       private
+         FID          : Integer;
+         FPreco       : Double;
+         FDescricao   : string;
+         FFoto        : string;
+         FNome        : string;
+         FidCategoria : string;
+
+       public
+         property Id          : Integer read FID write FID;
+         property Nome        : string read FNome  write FNome ;
+         property Descricao   : string read FDescricao write FDescricao;
+         property Preco       : Double read FPreco write FPreco;
+         property Foto        : string read FFoto write FFoto;
+         property idCategoria : string read FidCategoria write FidCategoria;
+     end;
+
+     TListaProdutos = class
+       private
+          FProdutO: TEntityProduto;
+          FProdutoS: TObjectList<TEntityProduto>;
+
+       public
+          property ProdutoS : TObjectList<TEntityProduto> read FProdutoS write FProdutoS;
+          property ProdutO  : TEntityProduto              read FProdutO  write FProdutO;
+
+          constructor Create;
+          destructor Destroy; override;
+          procedure AdicionarItem(Produto : TEntityProduto);
+     end;
+
+implementation
+
+{ TListaProdutos }
+
+procedure TListaProdutos.AdicionarItem(Produto: TEntityProduto);
+begin
+  ProdutoS := TObjectList<TEntityProduto>.Create(nil);
+  ProdutO  := TEntityProduto.Create;
+end;
+
+constructor TListaProdutos.Create;
+begin
+  FreeAndNil(ProdutoS);
+  FreeAndNil(ProdutO);
+end;
+
+destructor TListaProdutos.Destroy;
+begin
+
+  inherited;
+end;
+
+end.

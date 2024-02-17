@@ -1,0 +1,31 @@
+unit uProduto.Entity;
+
+interface
+
+   uses
+     System.Generics.Collections, System.SysUtils;
+
+   type
+
+     TEntityProduto = class
+       private
+         FID          : Integer;
+         FPreco       : Double;
+         FDescricao   : string;
+         FFoto        : string;
+         FNome        : string;
+         FidCategoria : string;
+
+       public
+         property Id          : Integer read FID write FID;
+         property Nome        : string read FNome  write FNome ;
+         property Descricao   : string read FDescricao write FDescricao;
+         property Preco       : Double read FPreco write FPreco;
+         property Foto        : string read FFoto write FFoto;
+         property idCategoria : string read FidCategoria write FidCategoria;
+
+     end;
+
+implementation
+
+end.

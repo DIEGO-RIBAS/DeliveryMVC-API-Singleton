@@ -1,0 +1,9 @@
+unit Model.Configuracoes;
+
+interface
+
+  uses
+
+implementation
+
+end.

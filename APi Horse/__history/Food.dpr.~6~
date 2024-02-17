@@ -1,0 +1,17 @@
+program Food;
+
+uses
+  System.StartUpCopy,
+  FMX.Forms,
+  uMain.View in 'uMain.View.pas' {frmMain},
+  Cardapio.Controller in 'Controller\Cardapio.Controller.pas',
+  Pedido.Controller in 'Controller\Pedido.Controller.pas',
+  Configuracoes.Controller in 'Controller\Configuracoes.Controller.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TfrmMain, frmMain);
+  Application.Run;
+end.

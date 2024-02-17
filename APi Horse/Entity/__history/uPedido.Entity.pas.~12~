@@ -1,0 +1,82 @@
+unit uPedido.Entity;
+
+interface
+
+    uses
+        System.Generics.Collections, System.SysUtils;
+
+    type
+
+    TPedidosItens = class
+      private
+        FIdPedido : Integer;
+        FPreco    : Double;
+        FProduto  : Integer;
+        FQtde     : Double;
+        FObs      : String;
+
+      public
+        property IdPedido  : Integer read FIdPedido write FIdPedido;
+        property IdProduto : Integer read FProduto  write FProduto;
+        property Qtde      : Double  read FQtde     write FQtde;
+        property Preco     : Double  read FPreco    write FPreco;
+        property Obs       : String  read FObs      write FObs;
+
+    end;
+
+      TPedidos = class
+        private
+          FIDCliente: Integer;
+          FDTPedido: string;
+          FEndereco: string;
+          FFone: string;
+          FStatus: string;
+          FListaVendaItem: TObjectList<TPedidosItens>;
+          FItem: TPedidosItens;
+
+        public
+          property IDCliente : Integer read FIDCliente  write FIDCliente ;
+          property DTpedido  : string  read FDTPedido   write FDTPedido;
+          property Endreeco  : string  read FEndereco   write FEndereco;
+          property Fone      : string  read FFone       write FFone;
+          property Status    : string  read FStatus     write FStatus;
+          property Itens     : TObjectList<TPedidosItens> read FListaVendaItem write FListaVendaItem;
+          property Item      : TPedidosItens              read FItem           write FItem;
+
+          constructor Create;
+          destructor Destroy; override;
+          procedure AdicionarItem(Item : TPedidosItens);
+      end;
+
+implementation
+
+{ TPedidos }
+
+procedure TPedidos.AdicionarItem(Item : TPedidosItens);
+var
+  I: Integer;
+begin
+
+  FListaVendaItem.Add(TPedidosItens.Create);
+  I := FListaVendaItem.Count -1;
+  FListaVendaItem[I].FIdPedido := Item.FIdPedido;
+  FListaVendaItem[I].FPreco    := Item.FPreco;
+  FListaVendaItem[I].FQtde     := Item.Qtde;
+  FListaVendaItem[I].FObs      := Item.Obs;
+
+end;
+
+constructor TPedidos.Create;
+begin
+  FListaVendaItem := TObjectList<TPedidosItens>.Create;
+  FItem           := TPedidosItens.Create;
+end;
+
+destructor TPedidos.Destroy;
+begin
+  FreeAndNil(FListaVendaItem);
+  FreeAndNil(FItem);
+  inherited;
+end;
+
+end.

@@ -1,0 +1,25 @@
+unit Model.Configuracoes;
+
+interface
+
+   uses
+    System.JSON,
+    FireDAC.Comp.Client, FireDAC.DApt,
+
+    {Singleton}
+    uConexaoSingleton;
+
+
+   function getConfig : TJSONObject;
+implementation
+
+function getConfig : TJSONObject;
+var
+  lQuery : TFDQuery;
+begin
+  lQuery := TFDQuery.Create(nil);
+  lQuery.Connection := TInstanciaConexao.ObterInstancia.Conexao;
+
+
+end;
+end.
